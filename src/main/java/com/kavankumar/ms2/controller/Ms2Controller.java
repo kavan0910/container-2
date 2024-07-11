@@ -38,7 +38,7 @@ public class Ms2Controller {
             HashMap<String, Object> map = new HashMap<>();
             System.out.println("Got product");
             map.put("file", request.getFile());
-            map.put("sum", sum);
+            map.put("sum", Integer.parseInt(String.valueOf(sum)));
             return map;
         } catch (Exception e) {
             System.out.println(e);
