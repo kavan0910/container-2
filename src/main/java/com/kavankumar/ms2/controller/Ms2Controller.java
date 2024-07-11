@@ -20,6 +20,7 @@ public class Ms2Controller {
         try{
             BufferedReader csv_file = new BufferedReader(new FileReader("/app/kavan/files"+request.getFile()));
             String row;
+            System.out.println(csv_file);
             int sum = 0;
             while ((row = csv_file.readLine()) != null) {
                 System.out.println("In the file");
@@ -28,13 +29,13 @@ public class Ms2Controller {
                     sum += Integer.parseInt(data[1]);
                 }
             }
-            if(sum == 0){
-                System.out.println("product not found");
-                HashMap<String, Object> map = new HashMap<>();
-                map.put("file", request.getFile());
-                map.put("error", "Input file not in CSV format.");
-                return map;
-            }
+//            if(sum == 0){
+//                System.out.println("product not found");
+//                HashMap<String, Object> map = new HashMap<>();
+//                map.put("file", request.getFile());
+//                map.put("error", "Input file not in CSV format.");
+//                return map;
+//            }
             HashMap<String, Object> map = new HashMap<>();
             System.out.println("Got product");
             map.put("file", request.getFile());
@@ -43,7 +44,7 @@ public class Ms2Controller {
         } catch (Exception e) {
             Map<String, Object> map = new HashMap<>();
             map.put("file", request.getFile());
-            map.put("error", "Input file not in CSV format.");
+            map.put("error", "File not found.");
             return map;
         }
     }
