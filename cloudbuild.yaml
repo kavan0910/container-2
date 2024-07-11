@@ -5,7 +5,7 @@ steps:
   - 'build'
   - '-t'
   - 'us-central1-docker.pkg.dev/kube-assignment-428815/cloud-k8s-repository/app-2:latest'
-  - './app2'
+  - '.'
 
 - name: 'gcr.io/cloud-builders/docker'
   id: 'push Docker Image for app2'
