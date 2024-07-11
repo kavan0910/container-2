@@ -14,13 +14,10 @@ import java.util.Map;
 public class Ms2Controller {
     @PostMapping("/sum")
     public Map<String, Object> sum(@RequestBody Map<String, String> request) {
-        final String STORAGE_LOCATION = "./kavan/files/";
+        final String STORAGE_LOCATION = "./app/kavan/files";
         String fileName = request.get("file");
         String product = request.get("product");
         File file = new File(STORAGE_LOCATION + fileName);
-        if (!file.exists()) {
-            return Map.of("file", fileName, "error", "File not found.");
-        }
 
         try (FileReader reader = new FileReader(file)) {
             Iterable<CSVRecord> records = CSVFormat.DEFAULT
@@ -35,7 +32,7 @@ public class Ms2Controller {
             }
             return Map.of("file", fileName, "sum", String.valueOf(sum));
         } catch (IOException e) {
-            return Map.of("file", fileName, "error", "Input file not in CSV format.");
+            return Map.of("file", fileName, "error", "File not found.");
         }
     }
 }
