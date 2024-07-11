@@ -41,9 +41,10 @@ public class Ms2Controller {
             map.put("sum", sum);
             return map;
         } catch (Exception e) {
+            System.out.println(e);
             Map<String, Object> map = new HashMap<>();
             map.put("file", request.getFile());
-            map.put("error", "Input file not in CSV format.");
+            map.put("error", "Error occured");
             return map;
         }
     }
