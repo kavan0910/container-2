@@ -1,8 +1,6 @@
 package com.kavankumar.ms2.controller;
 
 import com.kavankumar.ms2.request.Request;
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVRecord;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,7 +12,7 @@ import java.util.Map;
 @RestController
 public class Ms2Controller {
     @PostMapping("/sum")
-    public Map<String, String> sum(@RequestBody Request request) {
+    public Map<String, Object> sum(@RequestBody Request request) {
         try {
             System.out.println("entered second api");
             final String STORAGE_LOCATION = "./kavan/files/";
@@ -30,19 +28,19 @@ public class Ms2Controller {
             }
             if (sum == 0) {
                 System.out.println("product not found");
-                HashMap<String, String> map = new HashMap<>();
+                HashMap<String, Object> map = new HashMap<>();
                 map.put("file", request.getFile());
                 map.put("error", "Input file not in CSV format.");
                 return map;
             }
-            HashMap<String, String > map = new HashMap<>();
+            HashMap<String, Object > map = new HashMap<>();
             System.out.println("Got product");
             map.put("file", request.getFile());
-            map.put("sum", String.valueOf(sum));
+            map.put("sum", sum);
             return map;
         } catch (Exception e) {
             System.out.println(e);
-            Map<String, String> map = new HashMap<>();
+            Map<String, Object> map = new HashMap<>();
             map.put("file", request.getFile());
             map.put("error", "Error occured");
             return map;
