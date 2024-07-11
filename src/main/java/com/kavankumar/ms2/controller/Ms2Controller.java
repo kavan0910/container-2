@@ -1,51 +1,41 @@
 package com.kavankumar.ms2.controller;
 
-import com.kavankumar.ms2.request.Request;
-import com.opencsv.CSVReader;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVRecord;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
+import java.io.IOException;
 import java.util.Map;
 
 @RestController
 public class Ms2Controller {
     @PostMapping("/sum")
-    public Map<String,Object> sum(@RequestBody Request request) {
-        try{
-            BufferedReader csv_file = new BufferedReader(new FileReader("/app/kavan/files"+request.getFile()));
-            String row;
-            System.out.println(csv_file);
+    public Map<String, Object> sum(@RequestBody Map<String, String> request) {
+        final String STORAGE_LOCATION = "./kavan/files/";
+        String fileName = request.get("file");
+        String product = request.get("product");
+        File file = new File(STORAGE_LOCATION + fileName);
+        if (!file.exists()) {
+            return Map.of("file", fileName, "error", "File not found.");
+        }
+
+        try (FileReader reader = new FileReader(file)) {
+            Iterable<CSVRecord> records = CSVFormat.DEFAULT
+                    .withFirstRecordAsHeader()
+                    .parse(reader);
+
             int sum = 0;
-            while ((row = csv_file.readLine()) != null) {
-                System.out.println("In the file");
-                String[] data = row.split(",");
-                if (data[0].equals(request.getProduct())) {
-                    sum += Integer.parseInt(data[1]);
+            for (CSVRecord record : records) {
+                if (record.get("product").equalsIgnoreCase(product)) {
+                    sum += Integer.parseInt(record.get("amount"));
                 }
             }
-//            if(sum == 0){
-//                System.out.println("product not found");
-//                HashMap<String, Object> map = new HashMap<>();
-//                map.put("file", request.getFile());
-//                map.put("error", "Input file not in CSV format.");
-//                return map;
-//            }
-            HashMap<String, Object> map = new HashMap<>();
-            System.out.println("Got product");
-            map.put("file", request.getFile());
-            map.put("sum", sum);
-            return map;
-        } catch (Exception e) {
-            Map<String, Object> map = new HashMap<>();
-            map.put("file", request.getFile());
-            map.put("error", "File not found.");
-            return map;
+            return Map.of("file", fileName, "sum", String.valueOf(sum));
+        } catch (IOException e) {
+            return Map.of("file", fileName, "error", "Input file not in CSV format.");
         }
     }
 }
