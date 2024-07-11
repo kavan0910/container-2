@@ -16,8 +16,8 @@ public class Ms2Controller {
     @PostMapping("/sum")
     public Map<String, Object> sum(@RequestBody Request request) {
         try {
-
-            final String STORAGE_LOCATION = "./app/kavan/files";
+            System.out.println("entered second api");
+            final String STORAGE_LOCATION = "./app/kavan/files/";
             BufferedReader csv_file = new BufferedReader(new FileReader(STORAGE_LOCATION + request.getFile()));
             String row;
             int sum = 0;
