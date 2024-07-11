@@ -25,7 +25,7 @@ public class Ms2Controller {
                 System.out.println("In the file");
                 String[] data = row.split(",");
                 if (data[0].equals(request.getProduct())) {
-                    sum += Integer.parseInt(data[1]);
+                    sum += Integer.parseInt(data[1].trim());
                 }
             }
             if (sum == 0) {
