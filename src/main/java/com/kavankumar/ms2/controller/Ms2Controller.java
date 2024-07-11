@@ -14,7 +14,7 @@ import java.util.Map;
 @RestController
 public class Ms2Controller {
     @PostMapping("/sum")
-    public Map<String, Object> sum(Request request) {
+    public Map<String, Object> sum(@RequestBody Request request) {
         try {
 
             final String STORAGE_LOCATION = "/app/kavan/files";
