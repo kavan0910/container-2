@@ -17,8 +17,8 @@ public class Ms2Controller {
     public Map<String, Object> sum(@RequestBody Request request) {
         try {
 
-            final String STORAGE_LOCATION = "/app/kavan/files";
-            BufferedReader csv_file = new BufferedReader(new FileReader("/app/data/" + request.getFile()));
+            final String STORAGE_LOCATION = "./app/kavan/files";
+            BufferedReader csv_file = new BufferedReader(new FileReader(STORAGE_LOCATION + request.getFile()));
             String row;
             int sum = 0;
             while ((row = csv_file.readLine()) != null) {
