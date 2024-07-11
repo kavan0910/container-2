@@ -49,7 +49,7 @@ spec:
       containers:
       - name: app-2
         imagePullPolicy: Always
-        image: us-central1-docker.pkg.dev/kube-assignment-428815/cloud-k8s-repository/app-2:latest
+        image: us-central1-docker.pkg.dev/kube-assignment-428815/cloud-k8s-repository/app-2
         ports:
         - containerPort: 6000
         volumeMounts:
