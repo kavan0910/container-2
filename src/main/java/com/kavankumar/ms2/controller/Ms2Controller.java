@@ -13,7 +13,7 @@ import java.util.Map;
 public class Ms2Controller {
     @PostMapping("/sum")
     public Map<String, Object> sum(@RequestBody Request request) {
-        // This is the api for calculating sum.
+
         try {
             System.out.println("entered second api");
             final String STORAGE_LOCATION = "./kavan/files/";
